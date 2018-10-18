@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class StockRetriever {
+public class StockRetriever  implements  Runnable{
 
     private String company;
 
@@ -16,14 +16,24 @@ public class StockRetriever {
 
        this.company=company;
    }
+    @Override
+    public void  run(){
+       try {
+      getStockRetriever();
+       }
+       catch ( Exception e){
+           System.out.println(e);
+       }
+
+    }
 
     public BigDecimal getStockRetriever()throws IOException {
-        Stock stock;
-        BigDecimal price;
-        stock= YahooFinance.get(company);
-        price=stock.getQuote().getPrice();
-       // stock.print();
-        return  price;
+            Stock stock;
+            BigDecimal price;
+            stock = YahooFinance.get(company);
+            price = stock.getQuote().getPrice();
+            stock.print();
+            return price;
 
 
     }
